@@ -2,54 +2,49 @@
 
 ## users テーブル
 
-| Column      | Type    | Options     |
-| ----------- | ------  | ----------- |
-| nickname    | string  | null: false |
-| email       | string  | null: false |
-| password    | integer | null: false |
-| last_name   | string  | null: false |
-| first_name  | string  | null: false |
-| last_kana   | string  | null: false |
-| first_kana  | string  | null: false |
-| birth_year  | integer | null: false |
-| birth_month | integer | null: false |
-| birth_dey   | integer | null: false |
+| Column             | Type    | Options                       |
+| ------------------ | ------- | ----------------------------- |
+| nickname           | string  | null: false                   |
+| email              | string  | null: false, uniqueness: true |
+| encrypted_password | integer | null: false                   |
+| last_name          | string  | null: false                   |
+| first_name         | string  | null: false                   |
+| last_kana          | string  | null: false                   |
+| first_kana         | string  | null: false                   |
+| birth_date         | date    | null: false                   |
 
 ### Association
 
 - has_many :user_purchases
-- has_many :purchases, through: :user_purchases
 - has_many :items
 
-## purchases
+## address
 
 | Column           | Type       | Options                        |
-| -------------    | ---------- | ------------------------------ |
-| postal_code      | integer    | null: false                    |
-| prefecture       | integer    | null: false                    |
+| ---------------- | ---------- | ------------------------------ |
+| postal_code      | string     | null: false                    |
+| area_id          | integer    | null: false                    |
 | city             | string     | null: false                    |
 | street           | string     | null: false                    |
 | address          | string     |                                |
-| phone_number     | integer    | null: false                    |
-| item             | references | null: false, foreign_key: true |
+| phone_number     | string     | null: false                    |
+| user_purchase    | references | null: false, foreign_key: true |
 
 ### Association
 
-- has_many :user_purchases
-- has_many :users, through: :user_purchases
-- belongs_to :items
-
+- belongs_to :user_purchases
+- belongs_to :item
 ## user_purchases
 
-| Column   | Type       | Options                        |
-| ------   | ---------- | ------------------------------ |
-| user     | references | null: false, foreign_key: true |
-| purchase | references | null: false, foreign_key: true |
+| Column  | Type       | Options                        |
+| ------  | ---------- | ------------------------------ |
+| user    | references | null: false, foreign_key: true |
+| address | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- belongs_to :purchase
+- has_one :address
 
 ## items
 
@@ -57,16 +52,14 @@
 | ----------- | ---------- | ------------------------------ |
 | item_name   | string     | null: false                    |
 | description | text       | null: false                    |
-| category    | integer    | null: false                    |
-| state       | integer    | null: false                    |
-| burden      | integer    | null: false                    |
-| area        | integer    | null: false                    |
-| day         | integer    | null: false                    |
+| category_id | integer    | null: false                    |
+| state_id    | integer    | null: false                    |
+| burden_id   | integer    | null: false                    |
+| area_id     | integer    | null: false                    |
+| day_id      | integer    | null: false                    |
 | price       | integer    | null: false                    |
 | user        | references | null: false, foreign_key: true |
-| purchase    | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_one :purchase
