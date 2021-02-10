@@ -50,7 +50,7 @@ RSpec.describe User, type: :model do
       it 'last_nameが空では登録できない' do
         @user.last_name = nil
         @user.valid?
-        expect(@user.errors.full_messages).to include("Last name can't be blank", 'Last name は苗字を入力して下さい。')
+        expect(@user.errors.full_messages).to include("Last name can't be blank", 'Last name は名前を入力して下さい。')
       end
       it 'first_nameが空では登録できない' do
         @user.first_name = nil
@@ -106,7 +106,7 @@ RSpec.describe User, type: :model do
       it 'last_nameが半角文字だと登録できないこと' do
         @user.last_name = 'yamada'
         @user.valid?
-        expect(@user.errors.full_messages).to include('Last name は苗字を入力して下さい。')
+        expect(@user.errors.full_messages).to include('Last name は名前を入力して下さい。')
       end
       it 'first_nameが半角文字だと登録できないこと' do
         @user.first_name = 'taro'
