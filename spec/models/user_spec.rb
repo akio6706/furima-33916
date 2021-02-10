@@ -91,6 +91,48 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include('Password は半角英数字で入力して下さい。')
       end
+      it 'passwordが半角英字のみでは登録できない' do
+        @user.password = 'aaaaaa'
+        @user.password_confirmation = 'aaaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password は半角英数字で入力して下さい。')
+      end
+      it 'passwordが全角では登録できないこと' do
+        @user.password = 'ああああああ'
+        @user.password_confirmation = 'ああああああ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password は半角英数字で入力して下さい。')
+      end
+      it 'last_nameが半角文字だと登録できないこと' do
+        @user.last_name = 'yamada'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Last name は苗字を入力して下さい。')
+      end
+      it 'first_nameが半角文字だと登録できないこと' do
+        @user.first_name = 'taro'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('First name は名前を入力して下さい。')
+      end
+      it 'last_kanaが半角文字だと登録できない' do
+        @user.last_kana = 'yamada'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Last kana はカタカナで入力して下さい。')
+      end
+      it 'last_kanaがカタカナ以外の全角文字だと登録できない' do
+        @user.last_kana = '山田'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Last kana はカタカナで入力して下さい。')
+      end
+      it 'first_kanaが半角文字だと登録できない' do
+        @user.first_kana = 'taro'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('First kana はカタカナで入力して下さい。')
+      end
+      it 'first_kanaがカタカナ以外の全角文字だと登録できない' do
+        @user.first_kana = '太郎'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('First kana はカタカナで入力して下さい。')
+      end
     end
   end
 end
