@@ -7,9 +7,8 @@ class Item < ApplicationRecord
   end
   validates :price, numericality: { only_integer: true,
                                     greater_than_or_equal_to: 299,
-                                    less_than_or_equal_to: 10000000,
-                                    message: 'が範囲外です'
-                                  }
+                                    less_than_or_equal_to: 10_000_000,
+                                    message: 'が範囲外です' }
   with_options numericality: { other_than: 1 } do
     validates :category_id
     validates :state_id
