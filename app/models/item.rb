@@ -3,8 +3,13 @@ class Item < ApplicationRecord
     validates :image
     validates :item_name
     validates :description
-    validates :price
+    validates :price, numericality: { with: /\A[0-9]+\z/, message: 'は半角数字で入力して下さい。' }
   end
+  validates :price, numericality: { only_integer: true,
+                                    greater_than_or_equal_to: 299,
+                                    less_than_or_equal_to: 10000000,
+                                    message: 'が範囲外です'
+                                  }
   with_options numericality: { other_than: 1 } do
     validates :category_id
     validates :state_id
