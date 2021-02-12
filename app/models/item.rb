@@ -16,7 +16,7 @@ class Item < ApplicationRecord
     validates :area_id
     validates :day_id
   end
-  
+
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
   belongs_to :state
