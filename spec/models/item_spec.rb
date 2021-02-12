@@ -58,8 +58,13 @@ RSpec.describe Item, type: :model do
           @item.valid?
           expect(@item.errors.full_messages).to include("Price can't be blank")
         end
-        it 'priceが300~9,999,999以外では登録できない' do
-          @item.price = 111
+        it 'priceが300以下では登録できない' do
+          @item.price = 100
+          @item.valid?
+          expect(@item.errors.full_messages).to include('Price が範囲外です')
+        end
+        it 'priceが9,999,999以上では登録できない' do
+          @item.price = 100_000_000
           @item.valid?
           expect(@item.errors.full_messages).to include('Price が範囲外です')
         end
@@ -70,6 +75,11 @@ RSpec.describe Item, type: :model do
         end
         it 'priceが半角英字では登録できない' do
           @item.price = 'aaaa'
+          @item.valid?
+          expect(@item.errors.full_messages).to include('Price は半角数字で入力して下さい。', 'Price が範囲外です')
+        end
+        it 'priceが半角英数字では登録できない' do
+          @item.price = '1a1a1a'
           @item.valid?
           expect(@item.errors.full_messages).to include('Price は半角数字で入力して下さい。', 'Price が範囲外です')
         end
