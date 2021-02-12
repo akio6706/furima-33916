@@ -6,7 +6,7 @@ class User < ApplicationRecord
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
   validates_format_of :password, { with: PASSWORD_REGEX, message: 'は半角英数字で入力して下さい。' }
   with_options presence: true do
-    validates :nickname,   length: { maximum: 40 }
+    validates :nickname, length: { maximum: 40 }
     validates :birth_date
     with_options format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/, message: 'は名前を入力して下さい。' } do
       validates :last_name
@@ -17,4 +17,6 @@ class User < ApplicationRecord
       validates :first_kana
     end
   end
+
+  has_many :items
 end
