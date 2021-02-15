@@ -15,10 +15,10 @@
 
 ### Association
 
-- has_many :user_purchases
+- has_many :orders
 - has_many :items
 
-## address テーブル
+## addresses テーブル
 
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
@@ -28,23 +28,23 @@
 | street           | string     | null: false                    |
 | address          | string     |                                |
 | phone_number     | string     | null: false                    |
-| user_purchase    | references | null: false, foreign_key: true |
+| order            | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user_purchases
-- belongs_to :item
+- belongs_to :order
 
-## user_purchases テーブル
+## orders テーブル
 
 | Column  | Type       | Options                        |
 | ------  | ---------- | ------------------------------ |
 | user    | references | null: false, foreign_key: true |
-| address | references | null: false, foreign_key: true |
+| item    | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
+- belongs_to :item
 - has_one :address
 
 ## items テーブル
@@ -64,3 +64,4 @@
 ### Association
 
 - belongs_to :user
+- has_one :order
