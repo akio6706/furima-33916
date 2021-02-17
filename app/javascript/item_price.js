@@ -1,8 +1,8 @@
 window.addEventListener('load', () => {
-  
-  const item_price = document.getElementById("item-price");
-  item_price.addEventListener("input", () => {
-    const inputValue = item_price.value;
+
+  const itemPrice = document.getElementById("item-price");
+  itemPrice.addEventListener("input", () => {
+    const inputValue = itemPrice.value;
 
     const tax = document.getElementById("add-tax-price");
     tax.innerHTML = Math.floor(inputValue / 10) ;
